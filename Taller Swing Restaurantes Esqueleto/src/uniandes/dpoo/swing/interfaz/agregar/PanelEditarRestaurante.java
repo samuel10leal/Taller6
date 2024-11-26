@@ -29,16 +29,35 @@ public class PanelEditarRestaurante extends JPanel
     public PanelEditarRestaurante( )
     {
         // Crea el campo para el nombre con una etiqueta al frente
-        // TODO completar
-
-        // Crea el selector para la calificación con una etiqueta al frente
-        // TODO completar
-
+        JLabel nombre= new JLabel("Nombre");
+        txtNombre= new JTextField(20);
+        JPanel panelNombre= new JPanel();
+        panelNombre.add(nombre);
+        panelNombre.add(txtNombre);
+       
+        
+     // Crea el selector para la calificación con una etiqueta al frente
+        JLabel calificacion= new JLabel("Calificación");
+        String[] calificaciones= {"1","2","3","4","5"};
+        cbbCalificacion= new JComboBox<>(calificaciones);
+        JPanel panelCalificacion= new JPanel();
+        panelCalificacion.add(calificacion);
+        panelCalificacion.add(cbbCalificacion);
+        
+        
         // Crea el selector para indicar si ya ha sido visitado, con una etiqueta al frente
-        // TODO completar
+        JLabel lblVisitado = new JLabel("Visitado:");
+        String[] opcionesVisitado = {"Sí", "No"};
+        cbbVisitado = new JComboBox<>(opcionesVisitado);
+        JPanel panelVisitado = new JPanel(new FlowLayout());
+        panelVisitado.add(lblVisitado);
+        panelVisitado.add(cbbVisitado);
 
         // Agregar todos los elementos al panel
-        // TODO completar
+        setLayout(new GridLayout(3, 1));
+        add(panelNombre);
+        add(panelCalificacion);
+        add(panelVisitado);
 
     }
 
@@ -48,8 +67,7 @@ public class PanelEditarRestaurante extends JPanel
      */
     public boolean getVisitado( )
     {
-        // TODO completar
-        return false;
+    	return cbbVisitado.getSelectedItem().equals("Sí");
     }
 
     /**
@@ -68,7 +86,6 @@ public class PanelEditarRestaurante extends JPanel
      */
     public String getNombre( )
     {
-        // TODO completar
-        return "";
+    	return txtNombre.getText();
     }
 }

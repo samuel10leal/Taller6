@@ -84,9 +84,11 @@ public class VentanaPrincipal extends JFrame
     /**
      * Abre la ventana para mostrar el mapa de restaurante, si no está abierta ya
      */
-    public void mostrarVentanaMapa( )
-    {
-        // TODO completar mostrarVentanaMapa
+    public void mostrarVentanaMapa() {
+        if (ventanaMapa == null || !ventanaMapa.isVisible()) {
+            ventanaMapa = new VentanaMapa(this);
+            ventanaMapa.setVisible(true);
+        }
     }
 
     /**
@@ -97,9 +99,11 @@ public class VentanaPrincipal extends JFrame
      * @param y La coordenada Y del nuevo restaurante
      * @param visitado Indica si el nuevo restaurante ya fue visitado o no
      */
-    public void agregarRestaurante( String nombre, int calificacion, int x, int y, boolean visitado )
-    {
-        // TODO completar agregarRestaurante
+    public void agregarRestaurante( String nombre, int calificacion, int x, int y, boolean visitado ){
+    	
+       Restaurante restaurante=new Restaurante(nombre, calificacion, x, y, visitado);
+       mundo.agregarRestaurante(restaurante);
+       actualizarRestaurantes();
     }
 
     /**
@@ -117,10 +121,19 @@ public class VentanaPrincipal extends JFrame
     /**
      * Actualiza los restaurantes que se muestran en la lista y el restaurante seleccionado del cual se muestran los detalles
      */
-    private void actualizarRestaurantes( )
-    {
-        List<Restaurante> todos = this.mundo.getRestaurantes( true );
-        // TODO completar actualizarRestaurantes
+    private void actualizarRestaurantes() {
+        List<Restaurante> todos = this.mundo.getRestaurantes(true);
+        
+        // Actualizar la lista de restaurantes en el panel de lista
+        pLista.actualizarRestaurantes(todos);
+        
+        // Seleccionar el primer restaurante de la lista si no está vacía
+        if (!todos.isEmpty()) {
+            pLista.seleccionarRestaurante(todos.get(0));
+            cambiarRestauranteSeleccionado(todos.get(0));
+        } else {
+            pDetalles.actualizarRestaurante(null);
+        }
     }
 
     /**
